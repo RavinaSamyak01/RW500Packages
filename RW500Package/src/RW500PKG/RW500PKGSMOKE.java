@@ -76,16 +76,15 @@ public class RW500PKGSMOKE {
 		System.out.println("Current width: " + width);
 		System.out.println("window size==" + driver.manage().window().getSize());
 
-		// Set new size
-		Dimension newDimension = new Dimension(1366, 788);
-		driver.manage().window().setSize(newDimension);
-
-		// Getting
-		Dimension newSetDimension = driver.manage().window().getSize();
-		int newHeight = newSetDimension.getHeight();
-		int newWidth = newSetDimension.getWidth();
-		System.out.println("Current height: " + newHeight);
-		System.out.println("Current width: " + newWidth);
+		/*
+		 * // Set new size Dimension newDimension = new Dimension(1366, 788);
+		 * driver.manage().window().setSize(newDimension);
+		 * 
+		 * // Getting Dimension newSetDimension = driver.manage().window().getSize();
+		 * int newHeight = newSetDimension.getHeight(); int newWidth =
+		 * newSetDimension.getWidth(); System.out.println("Current height: " +
+		 * newHeight); System.out.println("Current width: " + newWidth);
+		 */
 	}
 
 	public void login() {
