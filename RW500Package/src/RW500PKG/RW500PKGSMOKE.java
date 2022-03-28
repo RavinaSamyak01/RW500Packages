@@ -913,7 +913,7 @@ public class RW500PKGSMOKE {
 
 	@AfterSuite
 	public void end() {
-		driver.close();
+		//driver.close();
 		driver.quit();
 	}
 }
