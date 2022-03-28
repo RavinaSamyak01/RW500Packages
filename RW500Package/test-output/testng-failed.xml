@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Route Work:Smoke]" guice-stage="DEVELOPMENT">
-  <test thread-count="5" name="Route Work 500 Packages(failed)">
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite parallel="none" name="Failed suite [Route Work:Smoke]">
+  <test parallel="none" name="RouteWork 500 Packages(failed)">
     <classes>
       <class name="RW500PKG.RW500PKGSMOKE">
         <methods>
-          <include name="rw500Package"/>
+          <include name="rw500PCKG"/>
           <include name="end"/>
           <include name="startup"/>
         </methods>
       </class> <!-- RW500PKG.RW500PKGSMOKE -->
     </classes>
-  </test> <!-- Route Work 500 Packages(failed) -->
+  </test> <!-- RouteWork 500 Packages(failed) -->
 </suite> <!-- Failed suite [Route Work:Smoke] -->

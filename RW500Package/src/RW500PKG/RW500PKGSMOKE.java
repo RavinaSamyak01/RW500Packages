@@ -54,15 +54,17 @@ public class RW500PKGSMOKE {
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
 		// options.addArguments("headless");
-		options.addArguments("headless");
+		//options.addArguments("headless");
 		options.addArguments("--incognito");
 		options.addArguments("--test-type");
 		options.addArguments("--no-proxy-server");
 		options.addArguments("--proxy-bypass-list=*");
 		options.addArguments("--disable-extensions");
 		options.addArguments("--no-sandbox");
-		options.addArguments("--headless");
-		options.addArguments("window-size=1366x788");
+		options.addArguments("--start-maximized");
+
+		//options.addArguments("--headless");
+		//options.addArguments("window-size=1366x788");
 		capabilities.setPlatform(Platform.ANY);
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		driver = new ChromeDriver(options);
@@ -600,7 +602,7 @@ public class RW500PKGSMOKE {
 
 		// Change Sequence of shipment-4
 		// *[@id="gvShipmentDetails_ctl06_lbEdit"]
-		WebElement element4 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl06_lbEdit']"));
+							WebElement element4 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl06_lbEdit']"));
 		act.moveToElement(element4).click().build().perform();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
