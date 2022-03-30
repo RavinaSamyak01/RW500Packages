@@ -54,7 +54,7 @@ public class RW500PKGSMOKE {
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
 		// options.addArguments("headless");
-		//options.addArguments("headless");
+		// options.addArguments("headless");
 		options.addArguments("--incognito");
 		options.addArguments("--test-type");
 		options.addArguments("--no-proxy-server");
@@ -63,8 +63,8 @@ public class RW500PKGSMOKE {
 		options.addArguments("--no-sandbox");
 		options.addArguments("--start-maximized");
 
-		//options.addArguments("--headless");
-		//options.addArguments("window-size=1366x788");
+		// options.addArguments("--headless");
+		// options.addArguments("window-size=1366x788");
 		capabilities.setPlatform(Platform.ANY);
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		driver = new ChromeDriver(options);
@@ -597,11 +597,11 @@ public class RW500PKGSMOKE {
 
 		WebElement el = driver.findElement(By.id("btnaddshipment"));
 		js.executeScript("arguments[0].scrollIntoView(true);", el);
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 
 		// Change Sequence of shipment-4
 		// *[@id="gvShipmentDetails_ctl06_lbEdit"]
-							WebElement element4 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl06_lbEdit']"));
+		WebElement element4 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl06_lbEdit']"));
 		act.moveToElement(element4).click().build().perform();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
@@ -698,7 +698,10 @@ public class RW500PKGSMOKE {
 
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
-
+		
+		el = driver.findElement(By.id("btnaddshipment"));
+		js.executeScript("arguments[0].scrollIntoView(true);", el);
+		Thread.sleep(3000);
 		// Change Sequence of shipment-6
 		// *[@id="gvShipmentDetails_ctl06_lbEdit"]
 		WebElement element6 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl08_lbEdit']"));
@@ -792,8 +795,9 @@ public class RW500PKGSMOKE {
 		Thread.sleep(2000);
 
 		driver.switchTo().alert();
+		Thread.sleep(2000);
 		driver.switchTo().alert().accept();
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 
 		// Get message after activation of RW
 		String NextGen = driver.findElement(By.id("lmsg")).getText();
@@ -913,7 +917,7 @@ public class RW500PKGSMOKE {
 
 	@AfterSuite
 	public void end() {
-		//driver.close();
+		// driver.close();
 		driver.quit();
 	}
 }
