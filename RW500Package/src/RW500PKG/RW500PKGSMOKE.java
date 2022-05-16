@@ -4,9 +4,11 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Random;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -37,7 +39,6 @@ import java.util.logging.Logger;
 public class RW500PKGSMOKE {
 	static StringBuilder msg = new StringBuilder();
 	static WebDriver driver;
-	static String baseUrl = "https://Staging.fedexsameday.com/specialsupport.aspx";
 	static JavascriptExecutor mzexecutor;
 	public static GenerateData genData;
 
@@ -47,9 +48,13 @@ public class RW500PKGSMOKE {
 	public static int rcount;
 	public static int RWpcs, SHPpcs;
 	public static int i;
+	public static Properties storage = new Properties();
 
 	@BeforeSuite
-	public void startup() {
+	public void startup() throws IOException {
+		storage = new Properties();
+		FileInputStream fi = new FileInputStream(".\\src\\config.properties");
+		storage.load(fi);
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
@@ -87,25 +92,40 @@ public class RW500PKGSMOKE {
 		 */
 	}
 
-	public void login() {
+	public void login() throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
-		// DEV
-		// String baseUrl = "https://test.fedexsameday.com/specialsupport.aspx";
-		// Staging
+		String Env = storage.getProperty("Env");
 
-		// String baseUrl = "http://10.20.205.70:9050/specialsupport.aspx";
-		// TEMP Prod
-		// String baseUrl = "https://wwwda2.fedexsameday.com/specialsupport.aspx";
-		driver.get(baseUrl);
-		// Enter User_name and Password and click on Login
-		driver.findElement(By.id("txtUserId")).clear();
-		driver.findElement(By.id("txtUserId")).sendKeys("FedExSupport");
-		driver.findElement(By.id("txtPassword")).clear();
-		// Staging
-		driver.findElement(By.id("txtPassword")).sendKeys("Fedex123");
-		// Production
-		// driver.findElement(By.id("txtPassword")).sendKeys("password");
+		if (Env.equalsIgnoreCase("Pre-Prod")) {
+			String baseUrl = storage.getProperty("PREPRODURL");
+			driver.get(baseUrl);
+			String UserName = storage.getProperty("PREPRODUserName");
+			driver.findElement(By.id("txtUserId")).clear();
+			driver.findElement(By.id("txtUserId")).sendKeys(UserName);
+			String Password = storage.getProperty("PREPRODPassword");
+			driver.findElement(By.id("txtPassword")).clear();
+			driver.findElement(By.id("txtPassword")).sendKeys(Password);
+		} else if (Env.equalsIgnoreCase("STG")) {
+			String baseUrl = storage.getProperty("STGURL");
+			driver.get(baseUrl);
+			String UserName = storage.getProperty("STGUserName");
+			driver.findElement(By.id("txtUserId")).clear();
+			driver.findElement(By.id("txtUserId")).sendKeys(UserName);
+			String Password = storage.getProperty("STGPassword");
+			driver.findElement(By.id("txtPassword")).clear();
+			driver.findElement(By.id("txtPassword")).sendKeys(Password);
+		} else if (Env.equalsIgnoreCase("DEV")) {
+			String baseUrl = storage.getProperty("DEVURL");
+			driver.get(baseUrl);
+			String UserName = storage.getProperty("DEVUserName");
+			driver.findElement(By.id("txtUserId")).clear();
+			driver.findElement(By.id("txtUserId")).sendKeys(UserName);
+			String Password = storage.getProperty("DEVPassword");
+			driver.findElement(By.id("txtPassword")).clear();
+			driver.findElement(By.id("txtPassword")).sendKeys(Password);
 
+		}
+		Thread.sleep(2000);
 		driver.findElement(By.id("rbRouteWork")).click();
 
 		driver.findElement(By.id("cmdLogin")).click();
@@ -504,16 +524,21 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("pieces")).sendKeys(shppcs);
 		WebElement webElementshppcs = driver.findElement(By.id("pieces"));
 		webElementshppcs.sendKeys(Keys.TAB);
-		Thread.sleep(2000);
 
-		driver.findElement(By.xpath(".//*[@id='rdbNo']")).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='rdbNo']")));
+		WebElement rdbNo = driver.findElement(By.xpath(".//*[@id='rdbNo']"));
+		act.moveToElement(rdbNo).click().perform();
 		Thread.sleep(1000);
 
 		driver.findElement(By.id("txtContents")).clear();
 		driver.findElement(By.id("txtContents")).sendKeys("Chocolate Voucher");
-		Thread.sleep(500);
+		Thread.sleep(2000);
 
 		for (i = 0; i < SHPpcs; i++) {
+			System.out.println("value of i==" + i);
+			wait.until(ExpectedConditions.elementToBeClickable(By.id("txtQty" + i)));
+			WebElement Qty = driver.findElement(By.id("txtQty" + i));
+			act.moveToElement(Qty).build().perform();
 			driver.findElement(By.id("txtQty" + i)).clear();
 			driver.findElement(By.id("txtQty" + i)).sendKeys("1");
 
@@ -546,9 +571,10 @@ public class RW500PKGSMOKE {
 
 		// Click on Done for validation
 		WebElement BtnDone = driver.findElement(By.id("btndone"));
-		js.executeScript("arguments[0].scrollIntoView(true);", BtnDone);
+		js.executeScript("arguments[0].scrollIntoView();", BtnDone);
 		Thread.sleep(2000);
 		act.moveToElement(BtnDone).click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		// BtnDone.click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lblShipmentCountErr")));
 		String DoneValidation = driver.findElement(By.id("lblShipmentCountErr")).getText();
@@ -588,19 +614,22 @@ public class RW500PKGSMOKE {
 		Thread.sleep(2000);
 		driver.findElement(By.id("btnSearch")).click();
 		Thread.sleep(2000);
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("currentForm")));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 
 		// Edit RW
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")));
 		driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
 		WebElement el = driver.findElement(By.id("btnaddshipment"));
-		js.executeScript("arguments[0].scrollIntoView(true);", el);
-		Thread.sleep(3000);
+		js.executeScript("arguments[0].scrollIntoView();", el);
 
 		// Change Sequence of shipment-4
 		// *[@id="gvShipmentDetails_ctl06_lbEdit"]
+		wait.until(
+				ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='gvShipmentDetails_ctl06_lbEdit']")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='gvShipmentDetails_ctl06_lbEdit']")));
 		WebElement element4 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl06_lbEdit']"));
 		act.moveToElement(element4).click().build().perform();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
@@ -610,7 +639,7 @@ public class RW500PKGSMOKE {
 		robot.keyPress(KeyEvent.VK_TAB);
 
 		WebElement el2 = driver.findElement(By.id("chkRecpOrderRcvd"));
-		js.executeScript("arguments[0].scrollIntoView(true);", el2);
+		js.executeScript("arguments[0].scrollIntoView();", el2);
 		Thread.sleep(2000);
 
 		driver.findElement(By.id("btnaddshipment")).click();
@@ -645,9 +674,10 @@ public class RW500PKGSMOKE {
 
 		// Click no Done.
 		BtnDone = driver.findElement(By.id("btndone"));
-		js.executeScript("arguments[0].scrollIntoView(true);", BtnDone);
+		js.executeScript("arguments[0].scrollIntoView();", BtnDone);
 		Thread.sleep(2000);
 		act.moveToElement(BtnDone).click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("newcontent")));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ddlStatus")));
 
@@ -659,18 +689,24 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("txtRouteWorkId")).clear();
 		driver.findElement(By.id("txtRouteWorkId")).sendKeys(RWid1);
 		driver.findElement(By.id("btnSearch")).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("currentForm")));
 
 		// Edit RW
-		driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")).click();
+		WebElement imgEdit = driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")));
+		imgEdit = driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img"));
+		imgEdit.click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
 		WebElement el1 = driver.findElement(By.id("btnaddshipment"));
-		js.executeScript("arguments[0].scrollIntoView(true);", el1);
+		js.executeScript("arguments[0].scrollIntoView();", el1);
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
 		// add new Shipment Details - 6 (3-6)
 		// From
+
 		driver.findElement(By.id("txtFromStopSeq")).clear();
 		driver.findElement(By.id("txtFromStopSeq")).sendKeys("3");
 		robot.keyPress(KeyEvent.VK_TAB);
@@ -698,10 +734,10 @@ public class RW500PKGSMOKE {
 
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
-		
+
 		el = driver.findElement(By.id("btnaddshipment"));
-		js.executeScript("arguments[0].scrollIntoView(true);", el);
-		Thread.sleep(3000);
+		js.executeScript("arguments[0].scrollIntoView();", el);
+		Thread.sleep(7000);
 		// Change Sequence of shipment-6
 		// *[@id="gvShipmentDetails_ctl06_lbEdit"]
 		WebElement element6 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl08_lbEdit']"));
@@ -713,7 +749,7 @@ public class RW500PKGSMOKE {
 		robot.keyPress(KeyEvent.VK_TAB);
 
 		WebElement el6 = driver.findElement(By.id("chkRecpOrderRcvd"));
-		js.executeScript("arguments[0].scrollIntoView(true);", el6);
+		js.executeScript("arguments[0].scrollIntoView();", el6);
 		Thread.sleep(2000);
 
 		driver.findElement(By.id("btnaddshipment")).click();
@@ -721,9 +757,10 @@ public class RW500PKGSMOKE {
 
 		// Click on Done
 		BtnDone = driver.findElement(By.id("btndone"));
-		js.executeScript("arguments[0].scrollIntoView(true);", BtnDone);
+		js.executeScript("arguments[0].scrollIntoView();", BtnDone);
 		Thread.sleep(2000);
 		act.moveToElement(BtnDone).click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("newcontent")));
 
 		// Process8: Active RW + Edit + Add Ship (4-6) + change seq (3-6) + Done +
@@ -742,7 +779,7 @@ public class RW500PKGSMOKE {
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
 		WebElement el7 = driver.findElement(By.id("btnaddshipment"));
-		js.executeScript("arguments[0].scrollIntoView(true);", el7);
+		js.executeScript("arguments[0].scrollIntoView();", el7);
 
 		Thread.sleep(2000);
 
@@ -773,19 +810,20 @@ public class RW500PKGSMOKE {
 		robot.keyPress(KeyEvent.VK_TAB);
 
 		WebElement el77 = driver.findElement(By.id("chkRecpOrderRcvd"));
-		js.executeScript("arguments[0].scrollIntoView(true);", el77);
+		js.executeScript("arguments[0].scrollIntoView();", el77);
 
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
 		// Click on Done
 		WebElement eld7 = driver.findElement(By.id("btndone"));
-		js.executeScript("arguments[0].scrollIntoView(true);", eld7);
+		js.executeScript("arguments[0].scrollIntoView();", eld7);
 
 		BtnDone = driver.findElement(By.id("btndone"));
-		js.executeScript("arguments[0].scrollIntoView(true);", BtnDone);
+		js.executeScript("arguments[0].scrollIntoView();", BtnDone);
 		Thread.sleep(2000);
 		act.moveToElement(BtnDone).click().perform();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("newcontent")));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ddlStatus")));
 
@@ -804,7 +842,10 @@ public class RW500PKGSMOKE {
 		System.out.println(NextGen);
 
 		// Click on search
-		driver.findElement(By.id("btnSearch")).click();
+		WebElement Search = driver.findElement(By.id("btnSearch"));
+		act.moveToElement(Search).build().perform();
+		Search.click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("currentForm")));
 
 		// Process9: Check Recurrence
@@ -891,9 +932,12 @@ public class RW500PKGSMOKE {
 		msg.append("Recurrence Verification : " + RecMsg + "\n\n");
 
 		msg.append("*** This is automated generated email and send through automation script" + "\n");
-		msg.append("Process URL : " + baseUrl);
+		String baseUrl = storage.getProperty("PREPRODURL");
 
-		String subject = "Selenium Automation Script:Staging Route Work Details-500Packages";
+		msg.append("Process URL : " + baseUrl);
+		String Env = storage.getProperty("Env");
+		String subject = "Selenium Automation Script: " + Env + " : Route Work Details-500Packages";
+
 		try {
 			Email.sendMail("ravina.prajapati@samyak.com,asharma@samyak.com,parth.doshi@samyak.com", subject,
 					msg.toString(), "");
