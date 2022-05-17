@@ -100,7 +100,9 @@ public class RW500PKGSMOKE {
 		if (Env.equalsIgnoreCase("Pre-Prod")) {
 			String baseUrl = storage.getProperty("PREPRODURL");
 			driver.get(baseUrl);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("Fedextitle")));
 			String UserName = storage.getProperty("PREPRODUserName");
+			wait.until(ExpectedConditions.elementToBeClickable(By.id("txtUserId")));
 			driver.findElement(By.id("txtUserId")).clear();
 			driver.findElement(By.id("txtUserId")).sendKeys(UserName);
 			String Password = storage.getProperty("PREPRODPassword");
@@ -109,7 +111,9 @@ public class RW500PKGSMOKE {
 		} else if (Env.equalsIgnoreCase("STG")) {
 			String baseUrl = storage.getProperty("STGURL");
 			driver.get(baseUrl);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("Fedextitle")));
 			String UserName = storage.getProperty("STGUserName");
+			wait.until(ExpectedConditions.elementToBeClickable(By.id("txtUserId")));
 			driver.findElement(By.id("txtUserId")).clear();
 			driver.findElement(By.id("txtUserId")).sendKeys(UserName);
 			String Password = storage.getProperty("STGPassword");
@@ -118,7 +122,9 @@ public class RW500PKGSMOKE {
 		} else if (Env.equalsIgnoreCase("DEV")) {
 			String baseUrl = storage.getProperty("DEVURL");
 			driver.get(baseUrl);
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("Fedextitle")));
 			String UserName = storage.getProperty("DEVUserName");
+			wait.until(ExpectedConditions.elementToBeClickable(By.id("txtUserId")));
 			driver.findElement(By.id("txtUserId")).clear();
 			driver.findElement(By.id("txtUserId")).sendKeys(UserName);
 			String Password = storage.getProperty("DEVPassword");
