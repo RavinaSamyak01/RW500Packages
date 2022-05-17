@@ -95,6 +95,7 @@ public class RW500PKGSMOKE {
 	public void login() throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		String Env = storage.getProperty("Env");
+		System.out.println("Env " + Env);
 
 		if (Env.equalsIgnoreCase("Pre-Prod")) {
 			String baseUrl = storage.getProperty("PREPRODURL");
