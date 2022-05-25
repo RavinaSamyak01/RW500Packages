@@ -701,7 +701,7 @@ public class RW500PKGSMOKE {
 		WebElement imgEdit = driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img"));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")));
 		imgEdit = driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img"));
-		imgEdit.click();
+		act.moveToElement(imgEdit).click().perform();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 

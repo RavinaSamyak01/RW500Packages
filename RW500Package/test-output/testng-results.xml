@@ -2,38 +2,36 @@
 <testng-results total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-05-17T11:36:09Z" name="Route Work:Smoke" finished-at="2022-05-17T11:36:20Z" duration-ms="11243">
+  <suite started-at="2022-05-25T03:53:57Z" name="Route Work:Smoke" finished-at="2022-05-25T03:58:28Z" duration-ms="270687">
     <groups>
     </groups>
-    <test started-at="2022-05-17T11:36:09Z" name="RouteWork 500 Packages" finished-at="2022-05-17T11:36:20Z" duration-ms="11243">
+    <test started-at="2022-05-25T03:53:57Z" name="RouteWork 500 Packages" finished-at="2022-05-25T03:58:28Z" duration-ms="270687">
       <class name="RW500PKG.RW500PKGSMOKE">
-        <test-method is-config="true" signature="startup()[pri:0, instance:RW500PKG.RW500PKGSMOKE@7fd7a283]" started-at="2022-05-17T17:06:06Z" name="startup" finished-at="2022-05-17T17:06:09Z" duration-ms="3582" status="PASS">
+        <test-method is-config="true" signature="startup()[pri:0, instance:RW500PKG.RW500PKGSMOKE@7fd7a283]" started-at="2022-05-25T09:23:53Z" name="startup" finished-at="2022-05-25T09:23:57Z" duration-ms="4412" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startup -->
-        <test-method signature="rw500PCKG()[pri:0, instance:RW500PKG.RW500PKGSMOKE@7fd7a283]" started-at="2022-05-17T17:06:09Z" name="rw500PCKG" finished-at="2022-05-17T17:06:20Z" duration-ms="11226" status="FAIL">
-          <exception class="org.openqa.selenium.NoSuchElementException">
+        <test-method signature="rw500PCKG()[pri:0, instance:RW500PKG.RW500PKGSMOKE@7fd7a283]" started-at="2022-05-25T09:23:57Z" name="rw500PCKG" finished-at="2022-05-25T09:28:28Z" duration-ms="270670" status="FAIL">
+          <exception class="org.openqa.selenium.StaleElementReferenceException">
             <message>
-              <![CDATA[no such element: Unable to locate element: {"method":"css selector","selector":"#txtUserId"}
+              <![CDATA[stale element reference: element is not attached to the page document
   (Session info: chrome=101.0.4951.67)
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/stale_element_reference.html
 Build info: version: '3.13.0', revision: '2f0d292', time: '2018-06-25T15:32:14.902Z'
-System info: host: 'SIPL92', ip: '10.212.130.156', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.13'
+System info: host: 'SIPL92', ip: '10.212.130.199', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.13'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 101.0.4951.67, chrome: {chromedriverVersion: 101.0.4951.41 (93c720db8323..., userDataDir: C:\WINDOWS\TEMP\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:50159}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 8c80c279042503546028b60ec384ccba
-*** Element info: {Using=id, value=txtUserId}]]>
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 101.0.4951.67, chrome: {chromedriverVersion: 101.0.4951.41 (93c720db8323..., userDataDir: C:\WINDOWS\TEMP\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:53253}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 3566e3e41c5caab17ac4e78f5062659a]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"css selector","selector":"#txtUserId"}
+              <![CDATA[org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
   (Session info: chrome=101.0.4951.67)
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/stale_element_reference.html
 Build info: version: '3.13.0', revision: '2f0d292', time: '2018-06-25T15:32:14.902Z'
-System info: host: 'SIPL92', ip: '10.212.130.156', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.13'
+System info: host: 'SIPL92', ip: '10.212.130.199', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.13'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 101.0.4951.67, chrome: {chromedriverVersion: 101.0.4951.41 (93c720db8323..., userDataDir: C:\WINDOWS\TEMP\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:50159}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 8c80c279042503546028b60ec384ccba
-*** Element info: {Using=id, value=txtUserId}
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 101.0.4951.67, chrome: {chromedriverVersion: 101.0.4951.41 (93c720db8323..., userDataDir: C:\WINDOWS\TEMP\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:53253}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 3566e3e41c5caab17ac4e78f5062659a
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -44,12 +42,9 @@ Session ID: 8c80c279042503546028b60ec384ccba
 	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:548)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:322)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:368)
-	at org.openqa.selenium.By$ById.findElement(By.java:188)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:314)
-	at RW500PKG.RW500PKGSMOKE.login(RW500PKGSMOKE.java:113)
-	at RW500PKG.RW500PKGSMOKE.rw500PCKG(RW500PKGSMOKE.java:145)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:276)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at RW500PKG.RW500PKGSMOKE.rw500PCKG(RW500PKGSMOKE.java:704)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -75,11 +70,11 @@ Session ID: 8c80c279042503546028b60ec384ccba
 	at org.testng.TestNG.main(TestNG.java:1333)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          </exception> <!-- org.openqa.selenium.StaleElementReferenceException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- rw500PCKG -->
-        <test-method is-config="true" signature="end()[pri:0, instance:RW500PKG.RW500PKGSMOKE@7fd7a283]" started-at="2022-05-17T17:06:20Z" name="end" finished-at="2022-05-17T17:06:21Z" duration-ms="611" status="PASS">
+        <test-method is-config="true" signature="end()[pri:0, instance:RW500PKG.RW500PKGSMOKE@7fd7a283]" started-at="2022-05-25T09:28:28Z" name="end" finished-at="2022-05-25T09:28:29Z" duration-ms="1030" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- end -->
