@@ -81,11 +81,12 @@ public class RW500PKGSMOKE {
 		System.out.println("Current width: " + width);
 		System.out.println("window size==" + driver.manage().window().getSize());
 
+		// Set new size
+		Dimension newDimension = new Dimension(1032, 776);
+		driver.manage().window().setSize(newDimension);
+
+		// Getting Dimension newSetDimension = driver.manage().window().getSize();
 		/*
-		 * // Set new size Dimension newDimension = new Dimension(1366, 788);
-		 * driver.manage().window().setSize(newDimension);
-		 * 
-		 * // Getting Dimension newSetDimension = driver.manage().window().getSize();
 		 * int newHeight = newSetDimension.getHeight(); int newWidth =
 		 * newSetDimension.getWidth(); System.out.println("Current height: " +
 		 * newHeight); System.out.println("Current width: " + newWidth);
@@ -650,7 +651,7 @@ public class RW500PKGSMOKE {
 
 		WebElement el2 = driver.findElement(By.id("chkRecpOrderRcvd"));
 		js.executeScript("arguments[0].scrollIntoView();", el2);
-			Thread.sleep(2000);
+		Thread.sleep(2000);
 
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
@@ -749,10 +750,13 @@ public class RW500PKGSMOKE {
 		js.executeScript("arguments[0].scrollIntoView();", el);
 		Thread.sleep(7000);
 		// Change Sequence of shipment-6
-		// *[@id="gvShipmentDetails_ctl06_lbEdit"]
 		WebElement element6 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl08_lbEdit']"));
-		act.moveToElement(element6).click().build().perform();
+		act.moveToElement(element6).build().perform();
+		act.moveToElement(element6).click().perform();
+		Thread.sleep(2000);	
+
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
+		Thread.sleep(2000);
 
 		driver.findElement(By.id("txtFromStopSeq")).clear();
 		driver.findElement(By.id("txtFromStopSeq")).sendKeys("2");
