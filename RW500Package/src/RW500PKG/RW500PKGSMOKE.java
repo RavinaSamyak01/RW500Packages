@@ -71,8 +71,9 @@ public class RW500PKGSMOKE {
 		options.addArguments("--disable-extensions");
 		options.addArguments("--no-sandbox");
 		options.addArguments("--start-maximized");
-
-		// options.addArguments("--headless");
+		options.addArguments("--disable-site-isolation-trials");
+		
+		// options.a	ddArguments("--headless");
 		// options.addArguments("window-size=1366x788");
 		capabilities.setPlatform(Platform.ANY);
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -775,7 +776,7 @@ public class RW500PKGSMOKE {
 		WebElement imgEdit = driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img"));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")));
 		imgEdit = driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img"));
-		act.moveToElement(imgEdit).click().perform();
+			act.moveToElement(imgEdit).click().perform();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
