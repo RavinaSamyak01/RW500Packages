@@ -111,6 +111,8 @@ public class RW500PKGSMOKE {
 
 	public void login() throws InterruptedException, IOException {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
 		String Env = storage.getProperty("Env");
 		System.out.println("Env " + Env);
 
@@ -196,9 +198,12 @@ public class RW500PKGSMOKE {
 
 		}
 		Thread.sleep(2000);
-		driver.findElement(By.id("rbRouteWork")).click();
+		WebElement RWRadio = driver.findElement(By.id("rbRouteWork"));
+		js.executeScript("arguments[0].click();", RWRadio);
 
-		driver.findElement(By.id("cmdLogin")).click();
+		WebElement Login = driver.findElement(By.id("cmdLogin"));
+		js.executeScript("arguments[0].click();", Login);
+		Thread.sleep(2000);
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content")));
 	}
 
@@ -605,7 +610,6 @@ public class RW500PKGSMOKE {
 		Thread.sleep(2000);
 
 		for (i = 0; i < SHPpcs; i++) {
-			System.out.println("value of i==" + i);
 			wait.until(ExpectedConditions.elementToBeClickable(By.id("txtQty" + i)));
 			WebElement Qty = driver.findElement(By.id("txtQty" + i));
 			act.moveToElement(Qty).build().perform();
