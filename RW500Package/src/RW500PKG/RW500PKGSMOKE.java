@@ -34,7 +34,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.util.logging.Level;
@@ -72,8 +71,8 @@ public class RW500PKGSMOKE {
 		options.addArguments("--no-sandbox");
 		options.addArguments("--start-maximized");
 		options.addArguments("--disable-site-isolation-trials");
-		
-		// options.a	ddArguments("--headless");
+
+		// options.a ddArguments("--headless");
 		// options.addArguments("window-size=1366x788");
 		capabilities.setPlatform(Platform.ANY);
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -197,6 +196,34 @@ public class RW500PKGSMOKE {
 				}
 			}
 
+		} else if (Env.equalsIgnoreCase("PROD")) {
+
+			String baseUrl = storage.getProperty("PRODURL");
+			driver.get(baseUrl);
+			try {
+				String UserName = storage.getProperty("PRODUserName");
+				wait.until(ExpectedConditions.elementToBeClickable(By.id("txtUserId")));
+				driver.findElement(By.id("txtUserId")).clear();
+				driver.findElement(By.id("txtUserId")).sendKeys(UserName);
+				String Password = storage.getProperty("PRODPassword");
+				driver.findElement(By.id("txtPassword")).clear();
+				driver.findElement(By.id("txtPassword")).sendKeys(Password);
+			} catch (Exception e) {
+				msg.append("URL is not working==FAIL");
+				getScreenshot(driver, "LoginIssue");
+				driver.quit();
+				Env = storage.getProperty("Env");
+				String subject = "Selenium Automation Script: " + Env + " : Route Work Smoke";
+				String File = ".//Screenshots//LoginIssue.png";
+				try {
+					Email.sendMail("ravina.prajapati@samyak.com,asharma@samyak.com,parth.doshi@samyak.com", subject,
+							msg.toString(), File);
+
+				} catch (Exception ex) {
+					Logger.getLogger(RW500PKGSMOKE.class.getName()).log(Level.SEVERE, null, ex);
+				}
+			}
+
 		}
 		Thread.sleep(2000);
 		WebElement RWRadio = driver.findElement(By.id("rbRouteWork"));
@@ -212,6 +239,7 @@ public class RW500PKGSMOKE {
 	public void rw500PCKG() throws Exception {
 		Robot robot = new Robot();
 		JavascriptExecutor js = (JavascriptExecutor) driver;
+		String Env = storage.getProperty("Env");
 
 		mzexecutor = (JavascriptExecutor) driver;
 		genData = new GenerateData();
@@ -250,7 +278,20 @@ public class RW500PKGSMOKE {
 		System.out.println(RWName);
 
 		// Customer
-		driver.findElement(By.id("txtCustCode")).sendKeys("117117117");
+
+		if (Env.equalsIgnoreCase("STG")) {
+			driver.findElement(By.id("txtCustCode")).sendKeys("117117117");
+			driver.findElement(By.id("txtCustCode")).sendKeys(Keys.TAB);
+
+		} else if (Env.equalsIgnoreCase("Pre-Prod")) {
+			driver.findElement(By.id("txtCustCode")).sendKeys("117117117");
+			driver.findElement(By.id("txtCustCode")).sendKeys(Keys.TAB);
+
+		} else if (Env.equalsIgnoreCase("Prod")) {
+			driver.findElement(By.id("txtCustCode")).sendKeys("777777777");
+			driver.findElement(By.id("txtCustCode")).sendKeys(Keys.TAB);
+
+		}
 
 		// Declare Value
 		driver.findElement(By.id("declared_value")).clear();
@@ -277,7 +318,7 @@ public class RW500PKGSMOKE {
 		// System.out.println(stdate1);
 
 		Date enddate = new Date();
-		Date addedDate1 = addDays(enddate, 5);
+		Date addedDate1 = addDays(enddate, 1);
 		String enddate1 = dateFormat.format(addedDate1);
 		// System.out.println(enddate1);
 
@@ -673,6 +714,7 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("btnsaveforlater")).click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("currentForm")));
+		getScreenshot(driver, "CreatedRW500");
 
 		// Get Generated RWId
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lmsg")));
@@ -776,7 +818,7 @@ public class RW500PKGSMOKE {
 		WebElement imgEdit = driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img"));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")));
 		imgEdit = driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img"));
-			act.moveToElement(imgEdit).click().perform();
+		act.moveToElement(imgEdit).click().perform();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
@@ -856,6 +898,8 @@ public class RW500PKGSMOKE {
 		driver.switchTo().alert();
 		driver.switchTo().alert().accept();
 		Thread.sleep(5000);
+
+		getScreenshot(driver, "CreatedSearchRW500");
 
 		// Edit RW
 		driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")).click();
@@ -949,39 +993,40 @@ public class RW500PKGSMOKE {
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("dgRWOccurance")));
 		String ActGen1 = driver.findElement(By.xpath("//*[@id=\"dgRWOccurance\"]//tr[2]/td[6]")).getText();
 		// System.out.println(ActGen1);
-		String ActGen2 = driver.findElement(By.xpath("//*[@id=\"dgRWOccurance\"]//tr[3]/td[6]")).getText();
+		// String ActGen2 =
+		// driver.findElement(By.xpath("//*[@id=\"dgRWOccurance\"]//tr[3]/td[6]")).getText();
 		// System.out.println(ActGen2);
-		String ActGen3 = driver.findElement(By.xpath("//*[@id=\"dgRWOccurance\"]//tr[4]/td[6]")).getText();
+		// String ActGen3 =
+		// driver.findElement(By.xpath("//*[@id=\"dgRWOccurance\"]//tr[4]/td[6]")).getText();
 		// System.out.println(ActGen3);
 
 		Date SchGen1 = new Date();
 		String Expdate1 = dateFormat.format(SchGen1);
 		// System.out.println(Expdate1);
 
-		Date SchGen2 = new Date();
-		Date addedSchDate1 = addDays(SchGen2, 2);
-		String Expdate2 = dateFormat.format(addedSchDate1);
-		// System.out.println(Expdate2);
-
-		Date SchGen3 = new Date();
-		Date addedSchDate2 = addDays(SchGen3, 3);
-		String Expdate3 = dateFormat.format(addedSchDate2);
+		/*
+		 * Date SchGen2 = new Date(); Date addedSchDate1 = addDays(SchGen2, 2); String
+		 * Expdate2 = dateFormat.format(addedSchDate1); // System.out.println(Expdate2);
+		 * 
+		 * Date SchGen3 = new Date(); Date addedSchDate2 = addDays(SchGen3, 3); String
+		 * Expdate3 = dateFormat.format(addedSchDate2);
+		 */
 		// System.out.println(Expdate3);
 
 		String Expdate1final = Expdate1 + RdyTime;
 		// System.out.println(Expdate1final);
-		String Expdate2final = Expdate2 + RdyTime;
+		// String Expdate2final = Expdate2 + RdyTime;
 		// System.out.println(Expdate2final);
-		String Expdate3final = Expdate3 + RdyTime;
+		// String Expdate3final = Expdate3 + RdyTime;
 		// System.out.println(Expdate3final);
 
 		if (ActGen1.contains(Expdate1final)) {
-			if (ActGen2.contains(Expdate2final)) {
-				if (ActGen3.contains(Expdate3final)) {
-					RecMsg = "All Schedule will generate proper as per recurrence set";
-					System.out.println(RecMsg);
-				}
-			}
+			// if (ActGen2.contains(Expdate2final)) {
+			// if (ActGen3.contains(Expdate3final)) {
+			RecMsg = "All Schedule will generate proper as per recurrence set";
+			System.out.println(RecMsg);
+			// }
+			// }
 		}
 
 		// Close the new window, if that window no more required
@@ -1009,8 +1054,8 @@ public class RW500PKGSMOKE {
 
 		msg.append("Schedule in Order Queue : " + "\n");
 		msg.append(ActGen1 + "\n");
-		msg.append(ActGen2 + "\n");
-		msg.append(ActGen3 + "\n\n");
+		// msg.append(ActGen2 + "\n");
+		// msg.append(ActGen3 + "\n\n");
 
 		msg.append("Recurrence Verification : " + RecMsg + "\n\n");
 
@@ -1018,7 +1063,7 @@ public class RW500PKGSMOKE {
 		String baseUrl = storage.getProperty("PREPRODURL");
 
 		msg.append("Process URL : " + baseUrl);
-		String Env = storage.getProperty("Env");
+		Env = storage.getProperty("Env");
 		String subject = "Selenium Automation Script: " + Env + " : Route Work Details-500Packages";
 
 		try {
