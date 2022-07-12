@@ -618,7 +618,7 @@ public class RW500PKGSMOKE {
 		Thread.sleep(2000);
 		// TO
 		driver.findElement(By.id("txtToStopSeq")).clear();
-		driver.findElement(By.id("txtToStopSeq")).sendKeys("6");
+		driver.findElement(By.id("txtToStopSeq")).sendKeys("5");
 		driver.findElement(By.id("txtToCompany")).sendKeys("ORLY ADELSON PRODUCTIONS");
 		driver.findElement(By.id("txtToContact")).sendKeys("SQUINTAR FILMS INC");
 		driver.findElement(By.id("txtToAddr1")).sendKeys("2900 OLYMPIC BLVD");
@@ -679,7 +679,7 @@ public class RW500PKGSMOKE {
 
 		driver.findElement(By.id("txtRouteWorkRef1")).sendKeys("Ref1 Ship4");
 		driver.findElement(By.id("txtRouteWorkRef3")).sendKeys("Ref3 Ship4");
-
+		
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
@@ -711,14 +711,18 @@ public class RW500PKGSMOKE {
 		// Process5: Create RW with Draft
 
 		// Click SaveforLater for Draft
-		driver.findElement(By.id("btnsaveforlater")).click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("currentForm")));
-		getScreenshot(driver, "CreatedRW500");
+		/*
+		 * driver.findElement(By.id("btnsaveforlater")).click();
+		 * wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(
+		 * "//*[@src=\"images/ajax-loader.gif\"]")));
+		 * wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(
+		 * "currentForm"))); getScreenshot(driver, "CreatedRW500");
+		 */
 
 		// Get Generated RWId
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lmsg")));
 		String RWIdtext = driver.findElement(By.id("lmsg")).getText();
+		getScreenshot(driver, "CreatedRW500");
 
 		String[] RWSplit = RWIdtext.split(" ");
 		String RWid = RWSplit[5];
@@ -756,7 +760,7 @@ public class RW500PKGSMOKE {
 		act.moveToElement(element4).click().build().perform();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
-		driver.findElement(By.id("txtToStopSeq")).clear();
+				driver.findElement(By.id("txtToStopSeq")).clear();
 		driver.findElement(By.id("txtToStopSeq")).sendKeys("5");
 		robot.keyPress(KeyEvent.VK_TAB);
 
@@ -917,7 +921,7 @@ public class RW500PKGSMOKE {
 		robot.keyPress(KeyEvent.VK_TAB);
 		// TO
 		driver.findElement(By.id("txtToStopSeq")).clear();
-		driver.findElement(By.id("txtToStopSeq")).sendKeys("6");
+		driver.findElement(By.id("txtToStopSeq")).sendKeys("5");
 		robot.keyPress(KeyEvent.VK_TAB);
 
 		driver.findElement(By.id("txtRouteWorkRef1")).sendKeys("Ref1 Ship7");
