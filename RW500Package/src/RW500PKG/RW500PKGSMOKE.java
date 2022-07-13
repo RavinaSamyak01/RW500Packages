@@ -277,7 +277,7 @@ public class RW500PKGSMOKE {
 		String RWName = driver.findElement(By.id("txtrouteworkdescription")).getAttribute("value");
 		System.out.println(RWName);
 
-		// Customer
+		// --Enter customer
 
 		if (Env.equalsIgnoreCase("STG")) {
 			driver.findElement(By.id("txtCustCode")).sendKeys("117117117");
@@ -318,6 +318,7 @@ public class RW500PKGSMOKE {
 		// System.out.println(stdate1);
 
 		Date enddate = new Date();
+		// --changed Add days date from 5 to 1//--Ravina
 		Date addedDate1 = addDays(enddate, 1);
 		String enddate1 = dateFormat.format(addedDate1);
 		// System.out.println(enddate1);
@@ -376,7 +377,8 @@ public class RW500PKGSMOKE {
 
 		// Exempt Date
 		Date exmdate = new Date();
-		Date addedDate2 = addDays(exmdate, 4);
+		// --changed Add days date from 4 to 1//--Ravina
+		Date addedDate2 = addDays(exmdate, 1);
 		String exmdate1 = dateFormat.format(addedDate2);
 		// System.out.println(exmdate1);
 
@@ -388,7 +390,8 @@ public class RW500PKGSMOKE {
 
 		// AlterGenerateDate
 		Date altdate = new Date();
-		Date addedDate3 = addDays(altdate, 3);
+		// --changed Add days date from 5 to 1//--Ravina
+		Date addedDate3 = addDays(altdate, 2);
 		String altdate1 = dateFormat.format(addedDate3);
 		// System.out.println(altdate1);
 
@@ -497,7 +500,6 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("chkShpOrderRcvd")).click();
 		driver.findElement(By.id("chkShpPickup")).click();
 		driver.findElement(By.id("chkShpDelivery")).click();
-
 		// TO
 		driver.findElement(By.id("txtToStopSeq")).sendKeys("2");
 		driver.findElement(By.id("txtToCompany")).sendKeys("SHOWTIME");
@@ -513,16 +515,13 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("chkRecpOrderRcvd")).click();
 		driver.findElement(By.id("chkRecpQDTChange")).click();
 		driver.findElement(By.id("chkRecpException")).click();
-
 		// Package for Shipment-1
-
 		driver.findElement(By.id("pieces")).clear();
 		driver.findElement(By.id("pieces")).sendKeys("1");
 		Thread.sleep(1000);
 		driver.findElement(By.id("txtContents")).clear();
 		driver.findElement(By.id("txtContents")).sendKeys("FLOWERS with Chocolate");
 		Thread.sleep(1000);
-
 		driver.findElement(By.id("txtDimLen0")).clear();
 		driver.findElement(By.id("txtDimLen0")).sendKeys(getRandomInteger(st));
 		driver.findElement(By.id("txtDimWid0")).clear();
@@ -531,10 +530,8 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("txtDimHt0")).sendKeys(getRandomInteger(st));
 		driver.findElement(By.id("txtActWt0")).clear();
 		driver.findElement(By.id("txtActWt0")).sendKeys(getRandomInteger(st));
-
 		driver.findElement(By.id("txtRouteWorkRef1")).sendKeys("Ref1 Ship1");
 		driver.findElement(By.id("txtRouteWorkRef3")).sendKeys("Ref3 Ship1");
-
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
@@ -558,12 +555,9 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("txtDelInst")).sendKeys("Art Work");
 		driver.findElement(By.id("txtRecipientEmail")).sendKeys("pdoshi@samyak.com");
 		driver.findElement(By.id("chkRecpOrderRcvd")).click();
-
 		// Package for Shipment-2 Taken from Master
-
 		driver.findElement(By.id("txtRouteWorkRef1")).sendKeys("Ref1 Ship2");
 		driver.findElement(By.id("txtRouteWorkRef3")).sendKeys("Ref3 Ship2");
-
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
@@ -603,10 +597,8 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("txtDimHt0")).sendKeys(getRandomInteger(st));
 		driver.findElement(By.id("txtActWt0")).clear();
 		driver.findElement(By.id("txtActWt0")).sendKeys(getRandomInteger(st));
-
 		driver.findElement(By.id("txtRouteWorkRef1")).sendKeys("Ref1 Ship3");
 		driver.findElement(By.id("txtRouteWorkRef3")).sendKeys("Ref3 Ship3");
-
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
@@ -618,7 +610,7 @@ public class RW500PKGSMOKE {
 		Thread.sleep(2000);
 		// TO
 		driver.findElement(By.id("txtToStopSeq")).clear();
-		driver.findElement(By.id("txtToStopSeq")).sendKeys("5");
+		driver.findElement(By.id("txtToStopSeq")).sendKeys("6");
 		driver.findElement(By.id("txtToCompany")).sendKeys("ORLY ADELSON PRODUCTIONS");
 		driver.findElement(By.id("txtToContact")).sendKeys("SQUINTAR FILMS INC");
 		driver.findElement(By.id("txtToAddr1")).sendKeys("2900 OLYMPIC BLVD");
@@ -631,22 +623,17 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("txtRecipientEmail")).sendKeys("pdoshi@samyak.com");
 		driver.findElement(By.id("chkRecpOrderRcvd")).click();
 		// Package for Shipment-4
-
 		js.executeScript("window.scrollBy(0,-25)", "");
-
 		String shppcs = formatter.formatCellValue(shCR.getRow(1).getCell(1));
 		SHPpcs = Integer.parseInt(shppcs);
-
 		driver.findElement(By.id("pieces")).clear();
 		driver.findElement(By.id("pieces")).sendKeys(shppcs);
 		WebElement webElementshppcs = driver.findElement(By.id("pieces"));
 		webElementshppcs.sendKeys(Keys.TAB);
-
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//*[@id='rdbNo']")));
 		WebElement rdbNo = driver.findElement(By.xpath(".//*[@id='rdbNo']"));
 		act.moveToElement(rdbNo).click().perform();
 		Thread.sleep(1000);
-
 		driver.findElement(By.id("txtContents")).clear();
 		driver.findElement(By.id("txtContents")).sendKeys("Chocolate Voucher");
 		Thread.sleep(2000);
@@ -679,7 +666,6 @@ public class RW500PKGSMOKE {
 
 		driver.findElement(By.id("txtRouteWorkRef1")).sendKeys("Ref1 Ship4");
 		driver.findElement(By.id("txtRouteWorkRef3")).sendKeys("Ref3 Ship4");
-		
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
@@ -711,13 +697,9 @@ public class RW500PKGSMOKE {
 		// Process5: Create RW with Draft
 
 		// Click SaveforLater for Draft
-		/*
-		 * driver.findElement(By.id("btnsaveforlater")).click();
-		 * wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(
-		 * "//*[@src=\"images/ajax-loader.gif\"]")));
-		 * wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(
-		 * "currentForm"))); getScreenshot(driver, "CreatedRW500");
-		 */
+		driver.findElement(By.id("btnsaveforlater")).click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@src=\"images/ajax-loader.gif\"]")));
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("currentForm")));
 
 		// Get Generated RWId
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lmsg")));
@@ -760,7 +742,7 @@ public class RW500PKGSMOKE {
 		act.moveToElement(element4).click().build().perform();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 
-				driver.findElement(By.id("txtToStopSeq")).clear();
+		driver.findElement(By.id("txtToStopSeq")).clear();
 		driver.findElement(By.id("txtToStopSeq")).sendKeys("5");
 		robot.keyPress(KeyEvent.VK_TAB);
 
@@ -832,7 +814,6 @@ public class RW500PKGSMOKE {
 
 		// add new Shipment Details - 6 (3-6)
 		// From
-
 		driver.findElement(By.id("txtFromStopSeq")).clear();
 		driver.findElement(By.id("txtFromStopSeq")).sendKeys("3");
 		robot.keyPress(KeyEvent.VK_TAB);
@@ -840,7 +821,6 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("txtToStopSeq")).clear();
 		driver.findElement(By.id("txtToStopSeq")).sendKeys("6");
 		robot.keyPress(KeyEvent.VK_TAB);
-
 		// Package for Shipment-6 (3-6)
 		driver.findElement(By.id("pieces")).clear();
 		driver.findElement(By.id("pieces")).sendKeys("1");
@@ -854,33 +834,29 @@ public class RW500PKGSMOKE {
 		driver.findElement(By.id("txtDimHt0")).sendKeys(getRandomInteger(st));
 		driver.findElement(By.id("txtActWt0")).clear();
 		driver.findElement(By.id("txtActWt0")).sendKeys(getRandomInteger(st));
-
 		driver.findElement(By.id("txtRouteWorkRef1")).sendKeys("Ref1 Ship6");
 		driver.findElement(By.id("txtRouteWorkRef3")).sendKeys("Ref3 Ship6");
-
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
 		el = driver.findElement(By.id("btnaddshipment"));
 		js.executeScript("arguments[0].scrollIntoView();", el);
 		Thread.sleep(7000);
+
 		// Change Sequence of shipment-6
 		WebElement element6 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl08_lbEdit']"));
 		act.moveToElement(element6).build().perform();
 		act.moveToElement(element6).click().perform();
 		Thread.sleep(2000);
-
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
 		Thread.sleep(2000);
 
 		driver.findElement(By.id("txtFromStopSeq")).clear();
 		driver.findElement(By.id("txtFromStopSeq")).sendKeys("2");
 		robot.keyPress(KeyEvent.VK_TAB);
-
 		WebElement el6 = driver.findElement(By.id("chkRecpOrderRcvd"));
 		js.executeScript("arguments[0].scrollIntoView();", el6);
 		Thread.sleep(2000);
-
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
@@ -903,15 +879,11 @@ public class RW500PKGSMOKE {
 		driver.switchTo().alert().accept();
 		Thread.sleep(5000);
 
-		getScreenshot(driver, "CreatedSearchRW500");
-
 		// Edit RW
 		driver.findElement(By.xpath(".//*[@id='dgRWList_lbEdit_0']/img")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
-
 		WebElement el7 = driver.findElement(By.id("btnaddshipment"));
 		js.executeScript("arguments[0].scrollIntoView();", el7);
-
 		Thread.sleep(2000);
 
 		// add ship (4-6)
@@ -921,12 +893,10 @@ public class RW500PKGSMOKE {
 		robot.keyPress(KeyEvent.VK_TAB);
 		// TO
 		driver.findElement(By.id("txtToStopSeq")).clear();
-		driver.findElement(By.id("txtToStopSeq")).sendKeys("5");
+		driver.findElement(By.id("txtToStopSeq")).sendKeys("6");
 		robot.keyPress(KeyEvent.VK_TAB);
-
 		driver.findElement(By.id("txtRouteWorkRef1")).sendKeys("Ref1 Ship7");
 		driver.findElement(By.id("txtRouteWorkRef3")).sendKeys("Ref3 Ship7");
-
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
@@ -935,21 +905,17 @@ public class RW500PKGSMOKE {
 		WebElement element7 = driver.findElement(By.xpath(".//*[@id='gvShipmentDetails_ctl09_lbEdit']"));
 		act.moveToElement(element7).click().build().perform();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("content1")));
-
 		driver.findElement(By.id("txtFromStopSeq")).clear();
 		driver.findElement(By.id("txtFromStopSeq")).sendKeys("3");
 		robot.keyPress(KeyEvent.VK_TAB);
-
 		WebElement el77 = driver.findElement(By.id("chkRecpOrderRcvd"));
 		js.executeScript("arguments[0].scrollIntoView();", el77);
-
 		driver.findElement(By.id("btnaddshipment")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("gvShipmentDetails")));
 
 		// Click on Done
 		WebElement eld7 = driver.findElement(By.id("btndone"));
 		js.executeScript("arguments[0].scrollIntoView();", eld7);
-
 		BtnDone = driver.findElement(By.id("btndone"));
 		js.executeScript("arguments[0].scrollIntoView();", BtnDone);
 		Thread.sleep(2000);
@@ -971,6 +937,7 @@ public class RW500PKGSMOKE {
 		// Get message after activation of RW
 		String NextGen = driver.findElement(By.id("lmsg")).getText();
 		System.out.println(NextGen);
+		getScreenshot(driver, "CreatedRW500After7Pack");
 
 		// Click on search
 		WebElement Search = driver.findElement(By.id("btnSearch"));
@@ -1019,18 +986,17 @@ public class RW500PKGSMOKE {
 
 		String Expdate1final = Expdate1 + RdyTime;
 		// System.out.println(Expdate1final);
-		// String Expdate2final = Expdate2 + RdyTime;
-		// System.out.println(Expdate2final);
-		// String Expdate3final = Expdate3 + RdyTime;
-		// System.out.println(Expdate3final);
-
+		/*
+		 * String Expdate2final = Expdate2 + RdyTime; //
+		 * System.out.println(Expdate2final); String Expdate3final = Expdate3 + RdyTime;
+		 * // System.out.println(Expdate3final);
+		 */
 		if (ActGen1.contains(Expdate1final)) {
-			// if (ActGen2.contains(Expdate2final)) {
-			// if (ActGen3.contains(Expdate3final)) {
-			RecMsg = "All Schedule will generate proper as per recurrence set";
-			System.out.println(RecMsg);
-			// }
-			// }
+			/*
+			 * if (ActGen2.contains(Expdate2final)) { if (ActGen3.contains(Expdate3final)) {
+			 * RecMsg = "All Schedule will generate proper as per recurrence set";
+			 * System.out.println(RecMsg); } }
+			 */
 		}
 
 		// Close the new window, if that window no more required
@@ -1058,9 +1024,9 @@ public class RW500PKGSMOKE {
 
 		msg.append("Schedule in Order Queue : " + "\n");
 		msg.append(ActGen1 + "\n");
-		// msg.append(ActGen2 + "\n");
-		// msg.append(ActGen3 + "\n\n");
-
+		/*
+		 * msg.append(ActGen2 + "\n"); msg.append(ActGen3 + "\n\n");
+		 */
 		msg.append("Recurrence Verification : " + RecMsg + "\n\n");
 
 		msg.append("*** This is automated generated email and send through automation script" + "\n");
@@ -1097,3 +1063,23 @@ public class RW500PKGSMOKE {
 		driver.quit();
 	}
 }
+
+//----
+/*
+ * Add shipment 1=1-2 2=1-3 3=1-4 4=1-6
+ * 
+ * 
+ * Edit shipment 4 4=1-6 --> 1-5
+ * 
+ * Add new shipment 5=1-6
+ * 
+ * add new shipment' 6=3-6
+ * 
+ * Edit shipment 6 6=2-6	
+ * 
+ * Activate route
+ * 
+ * Add new Shipment 7=4-6
+ * 
+ * Edit shipment 7 7=3-6
+ */

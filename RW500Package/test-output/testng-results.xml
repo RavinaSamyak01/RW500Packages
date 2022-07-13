@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-07-12T18:19:50 IST" name="Route Work:Smoke" finished-at="2022-07-12T18:25:40 IST" duration-ms="349942">
+  <suite started-at="2022-07-13T11:09:40 IST" name="Route Work:Smoke" finished-at="2022-07-13T11:20:47 IST" duration-ms="667021">
     <groups>
     </groups>
-    <test started-at="2022-07-12T18:19:50 IST" name="RouteWork 500 Packages" finished-at="2022-07-12T18:25:40 IST" duration-ms="349942">
+    <test started-at="2022-07-13T11:09:40 IST" name="RouteWork 500 Packages" finished-at="2022-07-13T11:20:47 IST" duration-ms="667021">
       <class name="RW500PKG.RW500PKGSMOKE">
-        <test-method is-config="true" signature="startup()[pri:0, instance:RW500PKG.RW500PKGSMOKE@738dc9b]" started-at="2022-07-12T18:19:47 IST" name="startup" finished-at="2022-07-12T18:19:50 IST" duration-ms="2658" status="PASS">
+        <test-method is-config="true" signature="startup()[pri:0, instance:RW500PKG.RW500PKGSMOKE@3c77d488]" started-at="2022-07-13T11:09:32 IST" name="startup" finished-at="2022-07-13T11:09:40 IST" duration-ms="8179" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startup -->
-        <test-method signature="rw500PCKG()[pri:0, instance:RW500PKG.RW500PKGSMOKE@738dc9b]" started-at="2022-07-12T18:19:50 IST" name="rw500PCKG" finished-at="2022-07-12T18:25:40 IST" duration-ms="349851" status="PASS">
+        <test-method signature="rw500PCKG()[pri:0, instance:RW500PKG.RW500PKGSMOKE@3c77d488]" started-at="2022-07-13T11:09:41 IST" name="rw500PCKG" finished-at="2022-07-13T11:20:47 IST" duration-ms="666806" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- rw500PCKG -->
-        <test-method is-config="true" signature="end()[pri:0, instance:RW500PKG.RW500PKGSMOKE@738dc9b]" started-at="2022-07-12T18:25:40 IST" name="end" finished-at="2022-07-12T18:25:40 IST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="end()[pri:0, instance:RW500PKG.RW500PKGSMOKE@3c77d488]" started-at="2022-07-13T11:20:47 IST" name="end" finished-at="2022-07-13T11:20:47 IST" duration-ms="2" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- end -->
